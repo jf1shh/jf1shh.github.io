@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jared Fisher — Claims AI builder</title>
+<meta name="description" content="17 years in auto claims, 11 as a senior appraiser. Now building cited, refusal-first AI for claims. Explore ClaimsRAG in an interactive replay.">
+<meta name="theme-color" content="#0D0B14">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230D0B14'/%3E%3Ccircle cx='9' cy='20' r='3' fill='%237C3AED'/%3E%3Ccircle cx='23' cy='10' r='3' fill='%23C4B5FD'/%3E%3Cpath d='M9 20L23 10' stroke='%237C3AED' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#claimsrag">Skip to ClaimsRAG</a>
+
+<canvas id="net" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="logo" href="#top" aria-label="Jared Fisher, top of page">JF<span>.</span></a>
+  <nav aria-label="Sections">
+    <a href="#claimsrag">ClaimsRAG</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#attack">Attack lab</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#story">Story</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <p class="eyebrow">Claims AI · Seattle, WA · open to work</p>
+  <h1>Jared <span class="grad">Fisher</span></h1>
+  <p class="lede">I spent <strong>17 years in auto claims</strong>, 11 as a senior appraiser. Now I build AI that <strong>cites its sources</strong>, <strong>does the math in tested code</strong>, and <strong>says no</strong> when it should.</p>
+  <div class="counters" role="list">
+    <div role="listitem"><b data-count="17">0</b><span>years in claims</span></div>
+    <div role="listitem"><b data-count="11">0</b><span>as senior appraiser</span></div>
+    <div role="listitem"><b data-count="34">0</b><span>golden eval questions</span></div>
+    <div role="listitem"><b data-count="38">0</b><span>poisoned docs tested</span></div>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="#claimsrag">Try the ClaimsRAG replay</a>
+    <a class="btn" href="https://www.linkedin.com/in/jaredfisher-ai/" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/jf1shh" rel="noopener">GitHub</a>
+  </div>
+  <p class="hint" aria-hidden="true">Move your mouse. Click to drop a node.</p>
+</section>
+
+<section id="claimsrag" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Featured project</p>
+    <h2>ClaimsRAG, <span class="grad">live replay</span></h2>
+    <p>An assistant for auto claims adjusters. Pick a question and watch what happens behind the answer.
+    <em>This is a scripted replay of the real behavior, on synthetic claims. It does not call a server or a model.</em></p>
+  </div>
+
+  <div class="demo" id="demo">
+    <div class="demo-side" role="tablist" aria-label="Demo scenarios">
+      <button role="tab" class="scn active" data-s="labor" aria-selected="true">
+        <small>Claim #2026-99382</small>Audit the labor rates on this estimate</button>
+      <button role="tab" class="scn" data-s="refuse" aria-selected="false">
+        <small>Claim #2026-10492</small>What is the payout on claim #2026-00000?</button>
+      <button role="tab" class="scn" data-s="poison" aria-selected="false">
+        <small>Attack · poisoned document</small>A shop PDF tells the AI to approve</button>
+      <p class="side-note">Every document here is synthetic. The assistant advises; the adjuster decides.</p>
+    </div>
+
+    <div class="demo-main">
+      <div class="q-row">
+        <span class="q-label">Question</span>
+        <span id="q-text" class="q-text"></span>
+        <button class="btn small primary" id="run">▶ Run</button>
+      </div>
+      <ol class="pipe" id="pipe" aria-label="Pipeline steps">
+        <li data-step="plan"><i></i><div><b>Plan</b><span>Break the question into searches</span></div></li>
+        <li data-step="search"><i></i><div><b>Hybrid search</b><span>Meaning (vector) + keywords, fused</span></div></li>
+        <li data-step="rerank"><i></i><div><b>Rerank</b><span>A second model re-scores the top hits</span></div></li>
+        <li data-step="tool"><i></i><div><b>Compute</b><span>Tested code does the arithmetic</span></div></li>
+        <li data-step="check"><i></i><div><b>Check</b><span>Cite, verify, or hold back</span></div></li>
+      </ol>
+      <div class="log" id="log" aria-live="polite"></div>
+      <div class="answer" id="answer" aria-live="polite"><p class="placeholder">Press Run to replay.</p></div>
+    </div>
+  </div>
+
+  <ul class="chips">
+    <li>Hybrid retrieval + reranking</li><li>Claims math in unit-tested tools</li>
+    <li>Refuses without evidence</li><li>Runs locally</li><li>Role &amp; claim-level permissions</li><li>Audit log</li>
+  </ul>
+  <p class="links"><a href="https://github.com/jf1shh/claims-rag" rel="noopener">Repository and full evaluation →</a></p>
+</section>
+
+<section id="evidence" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Measured, with dates</p>
+    <h2>Does hybrid search <span class="grad">actually help?</span></h2>
+    <p>34 claims questions, scored on 2026-10-21 by a local judge model. Flip between plain vector search and the full pipeline.</p>
+  </div>
+  <div class="toggle" role="group" aria-label="Retrieval method">
+    <button class="tg" data-m="plain" aria-pressed="false">Plain vector search</button>
+    <button class="tg active" data-m="hybrid" aria-pressed="true">Hybrid + reranking</button>
+  </div>
+  <div class="bars" id="bars"></div>
+  <p class="fine">Faithfulness and coverage were only scored for the hybrid pipeline. Faithfulness moves a few points between runs; treat it as a range, not a single truth. Small case counts, single runs: this is a portfolio proof of concept, not a production claim.</p>
+</section>
+
+<section id="attack" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Security</p>
+    <h2>Can a poisoned document <span class="grad">hijack it?</span></h2>
+    <p>The adversarial suite plants hostile and conflicting documents. Slide to turn the defenses on.</p>
+  </div>
+  <div class="attack">
+    <label for="def">Defenses: <b id="def-state">off</b></label>
+    <input type="range" id="def" min="0" max="1" step="1" value="0" aria-describedby="atk-note">
+    <div class="meter"><div id="meter-fill"></div><span id="meter-val">87.5%</span></div>
+    <p>of injection attempts <span id="meter-word">succeed</span></p>
+    <p id="atk-note" class="fine">Measured on the held-out attack set. Reduced, <strong>not solved</strong> — the README lists what still gets through.</p>
+  </div>
+</section>
+
+<section id="skills" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Skills</p>
+    <h2>What I bring, <span class="grad">and how I work</span></h2>
+    <p>I direct, review, debug and ship software with AI coding agents, primarily Claude Code. I have no formal engineering background and I don't claim unaided proficiency in any language below.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filter skills">
+    <button class="f active" data-f="all" aria-pressed="true">All</button>
+    <button class="f" data-f="domain" aria-pressed="false">Claims domain</button>
+    <button class="f" data-f="ai" aria-pressed="false">AI &amp; RAG</button>
+    <button class="f" data-f="build" aria-pressed="false">AI-assisted build</button>
+    <button class="f" data-f="quality" aria-pressed="false">Quality &amp; process</button>
+  </div>
+  <ul class="skill-grid" id="skills-grid"></ul>
+</section>
+
+<section id="projects" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Public work</p>
+    <h2>Things you can <span class="grad">click and try</span></h2>
+  </div>
+  <div class="cards">
+    <a class="card" href="https://github.com/jf1shh/claims-rag" rel="noopener">
+      <h3>ClaimsRAG</h3>
+      <p>Cited, refusal-first RAG for auto claims. Hybrid retrieval, tested claims tools, dated golden and adversarial evaluations. Local, synthetic data.</p>
+      <span>Repository →</span></a>
+    <a class="card" href="https://jf1shh.github.io/agentic-app-harness/" rel="noopener">
+      <h3>Agentic App Harness</h3>
+      <p>Spec-driven framework for AI-assisted app development: six deployed demos, Zod contracts, BDD tests and accessibility gates in CI.</p>
+      <span>Live showcase →</span></a>
+    <a class="card" href="https://jf1shh.github.io/jefferson-adventures-play/" rel="noopener">
+      <h3>Jefferson's Adventures</h3>
+      <p>A cozy cat platformer you can play in the browser. Built for fun, and proof I ship things people can open and use.</p>
+      <span>Play it →</span></a>
+  </div>
+</section>
+
+<section id="story" class="panel-section">
+  <div class="sec-head">
+    <p class="eyebrow">Story</p>
+    <h2>From the mailroom <span class="grad">to RAG</span></h2>
+  </div>
+  <ol class="timeline">
+    <li><time>2008</time><p>Start in the Liberty Mutual mailroom. Learn claims systems from the ground up.</p></li>
+    <li><time>2013</time><p>Claims support and total loss handling: appraisals, outcomes, policyholders, attorneys, shops.</p></li>
+    <li><time>2014</time><p>Auto appraiser: supplements, total losses, fraud indicators, subrogation, shop disputes. Eleven years.</p></li>
+    <li><time>Mar 2026</time><p>Start teaching myself to build with AI. First goal: make my own job more accurate. Then: make it work for the whole team.</p></li>
+    <li><time>Jun 2026</time><p>A 48-feature RAG appraisal assistant demoed to VP and Director level. (A pilot and demo, not deployed team-wide.)</p></li>
+    <li><time>Now</time><p>ClaimsRAG and the Agentic App Harness, both public. Looking for AI product, solutions and implementation roles in insurance.</p></li>
+  </ol>
+</section>
+</main>
+
+<footer>
+  <p><strong>Jared Fisher</strong> · Seattle, WA · remote</p>
+  <p><a href="https://www.linkedin.com/in/jaredfisher-ai/" rel="noopener">LinkedIn</a> · <a href="https://github.com/jf1shh" rel="noopener">GitHub</a></p>
+  <p class="fine">All claims data on this site is synthetic. The ClaimsRAG replay is scripted from real behavior and evaluation results. Psst: try the Konami code.</p>
+</footer>
+
+<div id="stamps" aria-hidden="true"></div>
+<script src="app.js"></script>
+</body>
+</html>
