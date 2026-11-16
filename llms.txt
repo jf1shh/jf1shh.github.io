@@ -1,6 +1,6 @@
 # Jared Fisher
 
-> Claims AI builder in Seattle, WA; remote. 17 years in auto insurance claims, 11 as a senior auto appraiser. Directs teams of AI coding agents (primarily Claude Code) to build claims AI, developer tools and games, starting March 2026. No formal engineering background; does not claim unaided proficiency in any programming language. Looking for AI product, solutions and implementation roles in insurance.
+> AI agent builder in Seattle, WA; remote. 17 years in auto insurance claims, 11 as a senior auto appraiser. Directs teams of AI coding agents (primarily Claude Code) to build claims AI, developer tools and games, starting March 2026. No formal engineering background; does not claim unaided proficiency in any programming language. Looking for AI product, solutions and implementation roles in insurance.
 
 This file is a plain summary of the public site at https://jf1shh.github.io/ for AI tools and search. Everything here is also visible on the site. All claims data shown on the site is synthetic.
 
@@ -8,7 +8,7 @@ This file is a plain summary of the public site at https://jf1shh.github.io/ for
 
 - [ClaimsRAG](https://github.com/jf1shh/claims-rag): AI assistant for auto claims adjusters. Hybrid retrieval (vector + keyword, rank fusion) with cross-encoder reranking; claims math done by unit-tested tools, not the model; refuses without evidence; role and claim-level permissions; audit log. Runs locally on synthetic data. The portfolio page has a scripted replay of its real behavior (no server or model is called).
 - [Agentic App Harness](https://jf1shh.github.io/agentic-app-harness/): spec-driven framework for AI-assisted app development. Six deployed web/mobile demos, Zod contracts, BDD tests, accessibility checks and deterministic CI gates.
-- [JUMP CUT](https://jf1shh.itch.io/jump-cut): stunt-driving game, solo entry to the 2026 Epic AI MegaJam, built in five days in Unreal Engine 5.9 with AI agents. [Trailer](https://youtu.be/0jnfxe_LziE), [dev log and tools](https://jf1shh.github.io/jump-cut-jam-tools/), [press kit](https://jf1shh.github.io/jump-cut-jam-tools/press-kit/), [source](https://github.com/jf1shh/jump-cut-jam-tools).
+- [JUMP CUT](https://jf1shh.itch.io/jump-cut): stunt-driving game, solo entry to the 2026 Epic AI MegaJam, made in Unreal Engine 5.9 with AI agents during the Nov 11-15 window. [Trailer](https://youtu.be/0jnfxe_LziE), [dev log and tools](https://jf1shh.github.io/jump-cut-jam-tools/), [press kit](https://jf1shh.github.io/jump-cut-jam-tools/press-kit/), [source](https://github.com/jf1shh/jump-cut-jam-tools).
 - [Jefferson's Adventures](https://jf1shh.github.io/jefferson-adventures-play/): a cozy cat platformer that plays in the browser.
 
 ## ClaimsRAG evaluation (as published on the site)

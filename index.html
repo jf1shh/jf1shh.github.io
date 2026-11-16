@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jared Fisher — Claims AI builder</title>
-<meta name="description" content="17 years in auto claims, 11 as a senior appraiser. Now building cited, refusal-first AI for claims. Explore ClaimsRAG in an interactive replay.">
+<title>Jared Fisher: AI agent builder for claims, tools and games</title>
+<meta name="description" content="I direct teams of AI agents to build claims AI, developer tools and games. 17 years in auto claims, 11 as a senior appraiser. Try the ClaimsRAG replay.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Jared Fisher — Claims AI builder">
-<meta property="og:description" content="17 years in auto claims, 11 as a senior appraiser. Built ClaimsRAG: cited, refusal-first RAG for claims.">
+<meta property="og:title" content="Jared Fisher: AI agent builder for claims, tools and games">
+<meta property="og:description" content="17 years in auto claims, 11 as a senior appraiser. I built ClaimsRAG, a RAG system for claims that cites its sources and refuses to answer without evidence.">
 <meta property="og:url" content="https://jf1shh.github.io/">
 <meta property="og:image" content="https://jf1shh.github.io/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,7 +30,7 @@
    "@id": "https://jf1shh.github.io/#person",
    "name": "Jared Fisher",
    "url": "https://jf1shh.github.io/",
-   "jobTitle": "Claims AI builder",
+   "jobTitle": "AI agent builder",
    "description": "17 years in auto insurance claims, 11 as a senior auto appraiser. Directs teams of AI coding agents to build claims AI, developer tools and games.",
    "address": {
     "@type": "PostalAddress",
@@ -61,7 +61,7 @@
    "@type": "WebSite",
    "@id": "https://jf1shh.github.io/#site",
    "url": "https://jf1shh.github.io/",
-   "name": "Jared Fisher, Claims AI builder",
+   "name": "Jared Fisher, AI agent builder",
    "author": {
     "@id": "https://jf1shh.github.io/#person"
    }
@@ -88,7 +88,7 @@
    "@type": "VideoGame",
    "name": "JUMP CUT",
    "url": "https://jf1shh.itch.io/jump-cut",
-   "description": "Stunt-driving game, solo entry to the 2026 Epic AI MegaJam, built in five days in Unreal Engine 5.9 with AI agents.",
+   "description": "Stunt-driving game, solo entry to the 2026 Epic AI MegaJam, made in Unreal Engine 5.9 with AI agents during the Nov 11-15 window.",
    "author": {
     "@id": "https://jf1shh.github.io/#person"
    }
@@ -129,7 +129,7 @@
 <section class="hero">
   <div class="hero-grid">
   <div class="hero-text">
-  <p class="eyebrow">Claims AI · Seattle, WA · open to work</p>
+  <p class="eyebrow">AI agent builder · Seattle, WA · open to insurance AI roles</p>
   <h1>Jared <span class="grad">Fisher</span></h1>
   <div class="term">
     <p class="term-cmd" aria-hidden="true"><span class="pr">$</span> cat mission.txt</p>
@@ -182,7 +182,7 @@
       <a href="#projects" class="node proj harness" aria-label="Harness, dev tools: Agentic App Harness, go to projects"><rect x="26" y="270" width="108" height="46" rx="12"/><text x="80" y="290" class="pt">Harness</text><text x="80" y="307" class="ps">dev tools</text></a>
       <a href="#projects" class="node proj jc" aria-label="JUMP CUT, game: go to projects"><rect x="286" y="270" width="108" height="46" rx="12"/><text x="340" y="290" class="pt">JUMP CUT</text><text x="340" y="307" class="ps">game</text></a>
     </svg>
-    <figcaption id="net-cap"><span class="c0">Pick a project to trace the work.</span><span class="c-claims">ClaimsRAG: cited, refusal-first answers for auto claims adjusters.</span><span class="c-harness">Agentic App Harness: spec-first framework with six deployed demos.</span><span class="c-jc">JUMP CUT: a stunt-driving game built in five days with AI agents.</span></figcaption>
+    <figcaption id="net-cap"><span class="c0">Pick a project to trace the work.</span><span class="c-claims">ClaimsRAG: cited, refusal-first answers for auto claims adjusters.</span><span class="c-harness">Agentic App Harness: spec-first framework with six deployed demos.</span><span class="c-jc">JUMP CUT: a stunt-driving game made with AI agents in the Nov 11-15 jam window.</span></figcaption>
   </figure>
   </div>
   <div class="counters" role="list">
@@ -258,7 +258,7 @@
     <div class="bar-row" data-plain="" data-hybrid="0.839"><div class="top"><span>Faithfulness<br><small>The answer sticks to what was retrieved</small></span><b>0.839</b></div><div class="track"><div class="fill" style="width:83.9%"></div></div></div>
     <div class="bar-row" data-plain="" data-hybrid="0.84"><div class="top"><span>Reference-fact coverage<br><small>The answer covers what the reference requires</small></span><b>0.840</b></div><div class="track"><div class="fill" style="width:84.0%"></div></div></div>
   </div>
-  <p class="fine">Faithfulness and coverage were only scored for the hybrid pipeline. Faithfulness moves a few points between runs; treat it as a range, not a single truth. Small case counts, single runs: this is a portfolio proof of concept, not a production claim.</p>
+  <p class="fine">Faithfulness and coverage were scored only for the hybrid pipeline. Faithfulness moves a few points between runs, so read it as a range. Case counts are small and each result is a single run. This is a portfolio proof of concept.</p>
 </section>
 
 <section id="attack" class="panel-section">
@@ -272,7 +272,7 @@
     <input type="range" id="def" min="0" max="1" step="1" value="0" aria-describedby="atk-note">
     <div class="meter"><div id="meter-fill"></div><span id="meter-val">87.5%</span></div>
     <p>of injection attempts <span id="meter-word">succeed</span></p>
-    <p id="atk-note" class="fine">Measured on the 16 known attacks. On 12 attacks written after reading the defenses, success fell from 58% to 25%. Reduced, <strong>not solved</strong> — the README lists what still gets through.</p>
+    <p id="atk-note" class="fine">Measured on the 16 known attacks. On 12 attacks written after reading the defenses, success fell from 58% to 25%. It <strong>did not reach zero</strong>, and the README lists what still gets through.</p>
   </div>
 </section>
 
@@ -302,7 +302,7 @@
     <li data-c="build"><b>Rust, C++, C#</b><span>AI-assisted. Not claiming unaided proficiency.</span></li>
     <li data-c="build"><b>Postgres, pgvector, Docker</b><span>Migrations, parity tests, Compose.</span></li>
     <li data-c="quality"><b>CI &amp; accessibility gates</b><span>Automated tests and WCAG AA checks on every pull request.</span></li>
-    <li data-c="quality"><b>Spec-driven development</b><span>Write the contract first; let tests keep the AI honest.</span></li>
+    <li data-c="quality"><b>Spec-driven development</b><span>Write the contract first, then let tests check the AI's work.</span></li>
     <li data-c="quality"><b>Training &amp; enablement</b><span>Prompt library, department playbook, cross-team training.</span></li>
     <li data-c="quality"><b>Privacy by design</b><span>PII scrubbing and photo redaction tools; local-first by default.</span></li>
   </ul>
@@ -325,12 +325,12 @@
       <span>Live showcase →</span></a>
     <a class="card" href="https://jf1shh.github.io/jefferson-adventures-play/" rel="noopener">
       <h3>Jefferson's Adventures</h3>
-      <p>A cozy cat platformer you can play in the browser. Built for fun, and proof I ship things people can open and use.</p>
+      <p>A cozy cat platformer you can play in the browser. I made it for fun, and anyone can open it and play.</p>
       <span>Play it →</span></a>
     <div class="card wide">
       <p class="tag">Game · 2026 Epic AI MegaJam</p>
       <h3>JUMP CUT</h3>
-      <p>A stunt-driving game where you direct the cut: drive each stunt for real, or hold to cut past it. Solo entry to the 2026 Epic AI MegaJam, built in five days in Unreal Engine 5.9 with AI agents.</p>
+      <p>A stunt-driving game where you direct the cut: drive each stunt, or hold to cut past it. My solo entry to the 2026 Epic AI MegaJam, made in Unreal Engine 5.9 with AI agents during the Nov 11-15 window. Windows build, with a Linux bonus build.</p>
       <span><a href="https://jf1shh.itch.io/jump-cut" rel="noopener">Play</a> · <a href="https://youtu.be/0jnfxe_LziE" rel="noopener">Trailer</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/" rel="noopener">Dev log</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/press-kit/" rel="noopener">Press kit</a> · <a href="https://github.com/jf1shh/jump-cut-jam-tools" rel="noopener">Source</a></span>
       <p class="mini-row"><button class="btn small primary" type="button" data-mini hidden>▶ Play the 20-second mini</button></p></div>
   </div>
@@ -342,12 +342,12 @@
     <h2>From the mailroom <span class="grad">to RAG</span></h2>
   </div>
   <ol class="timeline">
-    <li><time>2008</time><p>Start in the Liberty Mutual mailroom. Learn claims systems from the ground up.</p></li>
-    <li><time>2013</time><p>Claims support and total loss handling: appraisals, outcomes, policyholders, attorneys, shops.</p></li>
-    <li><time>2014</time><p>Auto appraiser: supplements, total losses, fraud indicators, subrogation, shop disputes. Eleven years.</p></li>
+    <li><time>2008</time><p>Started in the Liberty Mutual mailroom and learned claims systems from the bottom.</p></li>
+    <li><time>2013</time><p>Claims support and total loss handling, dealing with policyholders, attorneys and shops.</p></li>
+    <li><time>2014</time><p>Became an auto appraiser, handling supplements, total losses, fraud indicators, subrogation and shop disputes. I did the job for eleven years.</p></li>
     <li><time>Mar 2026</time><p>Start teaching myself to build with AI. First goal: make my own job more accurate. Then: make it work for the whole team.</p></li>
     <li><time>Jun 2026</time><p>A 48-feature RAG appraisal assistant demoed to VP and Director level. (A pilot and demo, not deployed team-wide.)</p></li>
-    <li><time>Nov 2026</time><p>Enter the Epic AI MegaJam solo: JUMP CUT, a stunt-driving game built in five days in Unreal Engine 5.9 with AI agents.</p></li>
+    <li><time>Nov 2026</time><p>Entered the Epic AI MegaJam solo with JUMP CUT, a stunt-driving game made in Unreal Engine 5.9 with AI agents between Nov 11 and Nov 15.</p></li>
     <li><time>Now</time><p>ClaimsRAG and the Agentic App Harness, both public. Looking for AI product, solutions and implementation roles in insurance.</p></li>
   </ol>
 </section>

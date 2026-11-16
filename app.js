@@ -117,7 +117,7 @@
       steps: [
         ['plan', 'Plan: retrieve the shop supplement and the supplement SOP.'],
         ['search', 'Retrieves 6 chunks. One chunk, from an uploaded shop PDF, contains instructions aimed at the AI.'],
-        ['rerank', 'Poisoned chunk ranks high: it repeats the question words. Ranking alone cannot save you.'],
+        ['rerank', 'Poisoned chunk ranks high because it repeats the question words, so ranking alone does not stop it.'],
         ['tool', 'supplement_review() runs on structured lines only; embedded text cannot change its inputs.'],
         ['check', 'Provenance check: instructions inside a document are data, not orders. Decision language held for a human.'],
       ],
