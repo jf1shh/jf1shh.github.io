@@ -160,3 +160,4 @@ footer .fine{max-width:620px}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal,.timeline li{opacity:1;transform:none}
 }
+.logo img{display:block;height:28px;width:auto}
