@@ -1,0 +1,39 @@
+# Jared Fisher
+
+> Claims AI builder in Seattle, WA; remote. 17 years in auto insurance claims, 11 as a senior auto appraiser. Directs teams of AI coding agents (primarily Claude Code) to build claims AI, developer tools and games, starting March 2026. No formal engineering background; does not claim unaided proficiency in any programming language. Looking for AI product, solutions and implementation roles in insurance.
+
+This file is a plain summary of the public site at https://jf1shh.github.io/ for AI tools and search. Everything here is also visible on the site. All claims data shown on the site is synthetic.
+
+## Projects
+
+- [ClaimsRAG](https://github.com/jf1shh/claims-rag): AI assistant for auto claims adjusters. Hybrid retrieval (vector + keyword, rank fusion) with cross-encoder reranking; claims math done by unit-tested tools, not the model; refuses without evidence; role and claim-level permissions; audit log. Runs locally on synthetic data. The portfolio page has a scripted replay of its real behavior (no server or model is called).
+- [Agentic App Harness](https://jf1shh.github.io/agentic-app-harness/): spec-driven framework for AI-assisted app development. Six deployed web/mobile demos, Zod contracts, BDD tests, accessibility checks and deterministic CI gates.
+- [JUMP CUT](https://jf1shh.itch.io/jump-cut): stunt-driving game, solo entry to the 2026 Epic AI MegaJam, built in five days in Unreal Engine 5.9 with AI agents. [Trailer](https://youtu.be/0jnfxe_LziE), [dev log and tools](https://jf1shh.github.io/jump-cut-jam-tools/), [press kit](https://jf1shh.github.io/jump-cut-jam-tools/press-kit/), [source](https://github.com/jf1shh/jump-cut-jam-tools).
+- [Jefferson's Adventures](https://jf1shh.github.io/jefferson-adventures-play/): a cozy cat platformer that plays in the browser.
+
+## ClaimsRAG evaluation (as published on the site)
+
+- 34 golden claims questions, scored on 2026-10-21 by a local judge model, hybrid + reranking pipeline: context precision 0.825, context recall 0.983, faithfulness 0.839, reference-fact coverage 0.840. Small case counts, single runs; faithfulness moves a few points between runs. A portfolio proof of concept, not a production claim.
+- Adversarial suite (38 poisoned documents tested): with defenses off, 87.5% of the 16 known injection attacks succeed. On 12 attacks written after reading the defenses, success fell from 58% to 25%. Reduced, not solved.
+
+## Experience
+
+- 2008: Liberty Mutual mailroom; learned claims systems from the ground up.
+- 2013: Claims support and total loss handling.
+- 2014: Auto appraiser, eleven years: supplements, total losses, fraud indicators, subrogation, shop disputes.
+- March 2026: Started building with AI. First goal: make the appraisal job more accurate, then make it work for the whole team.
+- June 2026: A 48-feature RAG appraisal assistant demoed to VP and Director level (a pilot and demo, not deployed team-wide).
+- November 2026: Solo entry to the Epic AI MegaJam (JUMP CUT).
+
+## Skills
+
+- Claims domain: total loss determination, supplement review and shop disputes, fraud indicators and subrogation.
+- AI and RAG: RAG architecture, agentic workflows (LangChain, LangGraph), evaluation with dated golden and adversarial sets, Model Context Protocol servers.
+- AI-assisted build (directs, reviews and debugs AI-written code): Python and FastAPI, TypeScript and React, Postgres/pgvector/Docker; Rust, C++ and C# AI-assisted only.
+- Quality and process: CI and WCAG AA accessibility gates, spec-driven development, training and enablement, privacy by design.
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/jaredfisher-ai/)
+- [GitHub](https://github.com/jf1shh)
+- [itch.io](https://jf1shh.itch.io/)
