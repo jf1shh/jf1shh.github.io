@@ -204,6 +204,7 @@ kbd{font:600 .72rem var(--mono);background:rgba(124,58,237,.22);border:1px solid
 .agent-net text{font:500 12px var(--mono);fill:var(--lav);text-anchor:middle}
 .agent-net .dir rect{fill:url(#g-tile);stroke:rgba(196,181,253,.45)}
 .agent-net .jf{font:800 20px var(--mono);fill:#F4F2FA}
+.agent-net .agent text{paint-order:stroke;stroke:var(--ink);stroke-width:5px;stroke-linejoin:round}
 .agent-net .agent circle{fill:var(--indigo);stroke:var(--violet);stroke-width:2}
 .agent-net .proj rect{fill:url(#g-tile);stroke:rgba(196,181,253,.35);stroke-width:1.2;transition:stroke .25s,filter .25s}
 .agent-net .proj.claims rect{stroke:var(--violet);stroke-width:2}
