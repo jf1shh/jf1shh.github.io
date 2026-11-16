@@ -18,15 +18,17 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
 <link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#claimsrag">Skip to ClaimsRAG</a>
 
+<div class="progress" aria-hidden="true"></div>
 <canvas id="net" aria-hidden="true"></canvas>
 
 <header class="nav">
-  <a class="logo" href="#top" aria-label="Jared Fisher, top of page"><img src="assets/mark-only.svg" alt="" height="28"></a>
+  <a class="logo" href="#top" aria-label="Jared Fisher, top of page"><img src="assets/mark-only.svg" alt="" aria-hidden="true" height="28"></a>
   <nav aria-label="Sections">
     <a href="#claimsrag">ClaimsRAG</a>
     <a href="#evidence">Evidence</a>
@@ -35,13 +37,69 @@
     <a href="#projects">Projects</a>
     <a href="#story">Story</a>
   </nav>
+  <button class="pal-btn" id="pal-open" type="button" aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" hidden><span>Jump to</span> <kbd id="pal-kbd">Ctrl K</kbd></button>
 </header>
 
 <main id="top">
 <section class="hero">
+  <div class="hero-grid">
+  <div class="hero-text">
   <p class="eyebrow">Claims AI · Seattle, WA · open to work</p>
   <h1>Jared <span class="grad">Fisher</span></h1>
-  <p class="lede">I direct teams of AI agents to build real things: claims AI, developer tools and games.</p>
+  <div class="term">
+    <p class="term-cmd" aria-hidden="true"><span class="pr">$</span> cat mission.txt</p>
+    <p class="lede typed-wrap"><span class="sr-only">I direct teams of AI agents to build real things: claims AI, developer tools and games.</span><span class="ghost" aria-hidden="true">I direct teams of AI agents to build real things: claims AI, developer tools and games.<span class="cursor">_</span></span><span class="typed" aria-hidden="true"><span id="typed">I direct teams of AI agents to build real things: claims AI, developer tools and games.</span><span class="cursor">_</span></span></p>
+  </div>
+  </div>
+  <figure class="agent-net" aria-labelledby="net-cap">
+    <svg viewBox="0 0 420 340" role="group" aria-label="How I work: I direct four AI agents, and they build three projects">
+      <defs>
+        <linearGradient id="g-wire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+        <linearGradient id="g-tile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E1B4B"/><stop offset="1" stop-color="#0D0B14"/></linearGradient>
+        <linearGradient id="g-jf" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+      </defs>
+      <g class="wires">
+        <path class="w w-dir" d="M210 52 C210 90 60 80 60 118"/>
+        <path class="w w-dir" d="M210 52 C210 90 160 90 160 118"/>
+        <path class="w w-dir" d="M210 52 C210 90 260 90 260 118"/>
+        <path class="w w-dir" d="M210 52 C210 90 360 80 360 118"/>
+        <path class="w w-claims" d="M60 142 C60 200 210 190 210 238"/>
+        <path class="w w-harness" d="M60 142 C60 220 80 230 80 270"/>
+        <path class="w w-claims" d="M160 142 C160 200 210 200 210 238"/>
+        <path class="w w-harness" d="M160 142 C160 220 80 220 80 270"/>
+        <path class="w w-jc" d="M160 142 C160 220 340 220 340 270"/>
+        <path class="w w-claims" d="M260 142 C260 200 210 200 210 238"/>
+        <path class="w w-jc" d="M260 142 C260 220 340 230 340 270"/>
+        <path class="w w-claims" d="M360 142 C360 200 210 190 210 238"/>
+        <path class="w w-harness" d="M360 142 C360 230 80 220 80 270"/>
+        <path class="w w-jc" d="M360 142 C360 220 340 220 340 270"/>
+      </g>
+      <g class="pulses" aria-hidden="true">
+        <path class="p w-dir" style="--d:0s" d="M210 52 C210 90 60 80 60 118" pathLength="100"/>
+        <path class="p w-dir" style="--d:.4s" d="M210 52 C210 90 160 90 160 118" pathLength="100"/>
+        <path class="p w-dir" style="--d:.8s" d="M210 52 C210 90 260 90 260 118" pathLength="100"/>
+        <path class="p w-dir" style="--d:1.2s" d="M210 52 C210 90 360 80 360 118" pathLength="100"/>
+        <path class="p w-claims" style="--d:1.1s" d="M60 142 C60 200 210 190 210 238" pathLength="100"/>
+        <path class="p w-harness" style="--d:2.9s" d="M160 142 C160 220 80 220 80 270" pathLength="100"/>
+        <path class="p w-claims" style="--d:1.9s" d="M260 142 C260 200 210 200 210 238" pathLength="100"/>
+        <path class="p w-jc" style="--d:2.3s" d="M260 142 C260 220 340 230 340 270" pathLength="100"/>
+        <path class="p w-claims" style="--d:2.7s" d="M360 142 C360 200 210 190 210 238" pathLength="100"/>
+        <path class="p w-jc" style="--d:3.3s" d="M160 142 C160 220 340 220 340 270" pathLength="100"/>
+      </g>
+      <g class="node dir" aria-hidden="true"><rect x="172" y="14" width="76" height="38" rx="10"/><text x="210" y="40" class="jf">JF<tspan fill="url(#g-jf)">_</tspan></text></g>
+      <g class="agents" aria-hidden="true">
+        <g class="node agent"><circle cx="60" cy="130" r="12"/><text x="60" y="108">plan</text></g>
+        <g class="node agent"><circle cx="160" cy="130" r="12"/><text x="160" y="108">code</text></g>
+        <g class="node agent"><circle cx="260" cy="130" r="12"/><text x="260" y="108">review</text></g>
+        <g class="node agent"><circle cx="360" cy="130" r="12"/><text x="360" y="108">test</text></g>
+      </g>
+      <a href="#claimsrag" class="node proj claims" aria-label="ClaimsRAG: cited claims AI. Go to the live replay"><rect x="140" y="238" width="140" height="56" rx="14"/><text x="210" y="263" class="pt">ClaimsRAG</text><text x="210" y="282" class="ps">claims AI</text></a>
+      <a href="#projects" class="node proj harness" aria-label="Agentic App Harness: developer tool. Go to projects"><rect x="26" y="270" width="108" height="46" rx="12"/><text x="80" y="290" class="pt">Harness</text><text x="80" y="307" class="ps">dev tools</text></a>
+      <a href="#projects" class="node proj jc" aria-label="JUMP CUT: game. Go to projects"><rect x="286" y="270" width="108" height="46" rx="12"/><text x="340" y="290" class="pt">JUMP CUT</text><text x="340" y="307" class="ps">game</text></a>
+    </svg>
+    <figcaption id="net-cap"><span class="c0">I direct the agents. They plan, code, review and test. Pick a project to trace the work.</span><span class="c-claims">ClaimsRAG: cited, refusal-first answers for auto claims adjusters.</span><span class="c-harness">Agentic App Harness: spec-first framework with six deployed demos.</span><span class="c-jc">JUMP CUT: a stunt-driving game built in five days with AI agents.</span></figcaption>
+  </figure>
+  </div>
   <div class="counters" role="list">
     <div role="listitem"><b data-count="17">0</b><span>years in claims</span></div>
     <div role="listitem"><b data-count="11">0</b><span>as senior appraiser</span></div>
@@ -110,7 +168,12 @@
     <button class="tg" data-m="plain" aria-pressed="false">Plain vector search</button>
     <button class="tg active" data-m="hybrid" aria-pressed="true">Hybrid + reranking</button>
   </div>
-  <div class="bars" id="bars"></div>
+  <div class="bars" id="bars">
+    <div class="bar-row" data-plain="0.764" data-hybrid="0.825"><div class="top"><span>Context precision<br><small>The documents it pulled are relevant</small></span><b>0.825</b></div><div class="track"><div class="fill" style="width:82.5%"></div></div></div>
+    <div class="bar-row" data-plain="0.934" data-hybrid="0.983"><div class="top"><span>Context recall<br><small>It didn&#x27;t miss a relevant document</small></span><b>0.983</b></div><div class="track"><div class="fill" style="width:98.3%"></div></div></div>
+    <div class="bar-row" data-plain="" data-hybrid="0.839"><div class="top"><span>Faithfulness<br><small>The answer sticks to what was retrieved</small></span><b>0.839</b></div><div class="track"><div class="fill" style="width:83.9%"></div></div></div>
+    <div class="bar-row" data-plain="" data-hybrid="0.84"><div class="top"><span>Reference-fact coverage<br><small>The answer covers what the reference requires</small></span><b>0.840</b></div><div class="track"><div class="fill" style="width:84.0%"></div></div></div>
+  </div>
   <p class="fine">Faithfulness and coverage were only scored for the hybrid pipeline. Faithfulness moves a few points between runs; treat it as a range, not a single truth. Small case counts, single runs: this is a portfolio proof of concept, not a production claim.</p>
 </section>
 
@@ -142,7 +205,23 @@
     <button class="f" data-f="build" aria-pressed="false">AI-assisted build</button>
     <button class="f" data-f="quality" aria-pressed="false">Quality &amp; process</button>
   </div>
-  <ul class="skill-grid" id="skills-grid"></ul>
+  <ul class="skill-grid" id="skills-grid">
+    <li data-c="domain"><b>Total loss determination</b><span>State thresholds, ACV, salvage, supplements counted in.</span></li>
+    <li data-c="domain"><b>Supplement review &amp; shop disputes</b><span>Labor caps, betterment, part types, reinspection triggers.</span></li>
+    <li data-c="domain"><b>Fraud indicators &amp; subrogation</b><span>SIU red flags, liability, recovery triage.</span></li>
+    <li data-c="ai"><b>RAG architecture</b><span>Hybrid retrieval, rank fusion, cross-encoder reranking.</span></li>
+    <li data-c="ai"><b>Agentic workflows</b><span>Planning, self-correction, tool use; LangChain and LangGraph.</span></li>
+    <li data-c="ai"><b>Evaluation</b><span>Dated golden sets and adversarial suites, local judge model.</span></li>
+    <li data-c="ai"><b>Model Context Protocol</b><span>Configured and ran MCP servers for Blender, Unity and Unreal.</span></li>
+    <li data-c="build"><b>Python &amp; FastAPI</b><span>Built with Claude Code. I direct, review and debug.</span></li>
+    <li data-c="build"><b>TypeScript &amp; React</b><span>Built with Claude Code. Contract-first with Zod schemas.</span></li>
+    <li data-c="build"><b>Rust, C++, C#</b><span>AI-assisted. Not claiming unaided proficiency.</span></li>
+    <li data-c="build"><b>Postgres, pgvector, Docker</b><span>Migrations, parity tests, Compose.</span></li>
+    <li data-c="quality"><b>CI &amp; accessibility gates</b><span>Automated tests and WCAG AA checks on every pull request.</span></li>
+    <li data-c="quality"><b>Spec-driven development</b><span>Write the contract first; let tests keep the AI honest.</span></li>
+    <li data-c="quality"><b>Training &amp; enablement</b><span>Prompt library, department playbook, cross-team training.</span></li>
+    <li data-c="quality"><b>Privacy by design</b><span>PII scrubbing and photo redaction tools; local-first by default.</span></li>
+  </ul>
 </section>
 
 <section id="projects" class="panel-section">
@@ -151,7 +230,8 @@
     <h2>Things you can <span class="grad">click and try</span></h2>
   </div>
   <div class="cards">
-    <a class="card" href="https://github.com/jf1shh/claims-rag" rel="noopener">
+    <a class="card featured" href="https://github.com/jf1shh/claims-rag" rel="noopener">
+      <p class="tag">Featured · claims AI</p>
       <h3>ClaimsRAG</h3>
       <p>Cited, refusal-first RAG for auto claims. Hybrid retrieval, tested claims tools, dated golden and adversarial evaluations. Local, synthetic data.</p>
       <span>Repository →</span></a>
@@ -163,10 +243,12 @@
       <h3>Jefferson's Adventures</h3>
       <p>A cozy cat platformer you can play in the browser. Built for fun, and proof I ship things people can open and use.</p>
       <span>Play it →</span></a>
-    <div class="card">
+    <div class="card wide">
+      <p class="tag">Game · 2026 Epic AI MegaJam</p>
       <h3>JUMP CUT</h3>
       <p>A stunt-driving game where you direct the cut: drive each stunt for real, or hold to cut past it. Solo entry to the 2026 Epic AI MegaJam, built in five days in Unreal Engine 5.9 with AI agents.</p>
-      <span><a href="https://jf1shh.itch.io/jump-cut" rel="noopener">Play</a> · <a href="https://youtu.be/0jnfxe_LziE" rel="noopener">Trailer</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/" rel="noopener">Dev log</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/press-kit/" rel="noopener">Press kit</a> · <a href="https://github.com/jf1shh/jump-cut-jam-tools" rel="noopener">Source</a></span></div>
+      <span><a href="https://jf1shh.itch.io/jump-cut" rel="noopener">Play</a> · <a href="https://youtu.be/0jnfxe_LziE" rel="noopener">Trailer</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/" rel="noopener">Dev log</a> · <a href="https://jf1shh.github.io/jump-cut-jam-tools/press-kit/" rel="noopener">Press kit</a> · <a href="https://github.com/jf1shh/jump-cut-jam-tools" rel="noopener">Source</a></span>
+      <p class="mini-row"><button class="btn small primary" type="button" data-mini hidden>▶ Play the 20-second mini</button></p></div>
   </div>
 </section>
 
@@ -190,9 +272,16 @@
 <footer>
   <p><strong>Jared Fisher</strong> · Seattle, WA · remote</p>
   <p><a href="https://www.linkedin.com/in/jaredfisher-ai/" rel="noopener">LinkedIn</a> · <a href="https://github.com/jf1shh" rel="noopener">GitHub</a> · <a href="https://x.com/JaredFishe19708" rel="noopener">X</a> · <a href="https://www.instagram.com/jf1shh/" rel="noopener">Instagram</a> · <a href="https://jf1shh.itch.io/" rel="noopener">itch.io</a></p>
-  <p class="fine">All claims data on this site is synthetic. The ClaimsRAG replay is scripted from real behavior and evaluation results. Psst: try the Konami code.</p>
+  <p class="fine">All claims data on this site is synthetic. The ClaimsRAG replay is scripted from real behavior and evaluation results. Psst: press Ctrl K, or try the Konami code.</p>
 </footer>
 
+<dialog class="pal" id="pal" aria-label="Jump to a section or link">
+  <div class="pal-in">
+    <input id="pal-q" type="text" role="combobox" aria-expanded="true" aria-controls="pal-list" aria-autocomplete="list" placeholder="Jump to… (type to filter)" autocomplete="off" spellcheck="false">
+    <ul id="pal-list" role="listbox" aria-label="Results"></ul>
+    <p class="pal-foot"><kbd>↑</kbd><kbd>↓</kbd> move · <kbd>Enter</kbd> go · <kbd>Esc</kbd> close</p>
+  </div>
+</dialog>
 <div id="stamps" aria-hidden="true"></div>
 <script src="app.js"></script>
 </body>

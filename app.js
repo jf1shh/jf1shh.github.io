@@ -13,7 +13,7 @@
     W = cv.width = innerWidth * d; H = cv.height = innerHeight * d;
     cx.setTransform(d, 0, 0, d, 0, 0);
     W /= d; H /= d;
-    const n = Math.round(Math.min(90, (W * H) / 16000));
+    const n = Math.round(Math.min(64, (W * H) / 22000));
     while (nodes.length < n) nodes.push(mk());
     nodes.length = Math.min(nodes.length, Math.max(n, 0) + 40);
   };
@@ -47,8 +47,9 @@
       cx.fillStyle = md < 170 ? '#C4B5FD' : 'rgba(124,58,237,.9)';
       cx.beginPath(); cx.arc(a.x, a.y, a.r, 0, 6.283); cx.fill();
     }
-    if (!reduce) requestAnimationFrame(draw);
+    if (!reduce && !document.hidden) requestAnimationFrame(draw);
   }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !reduce) requestAnimationFrame(draw); });
   addEventListener('resize', () => { resize(); if (reduce) draw(); });
   addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
   addEventListener('pointerleave', () => { mouse.x = mouse.y = -999; });
@@ -61,6 +62,8 @@
   resize(); draw();
 
   /* ---------- reveal + counters ---------- */
+  const cssScroll = CSS.supports('animation-timeline: view()');
+  document.documentElement.classList.add('js', cssScroll ? 'sdt' : 'no-sdt');
   $$('.panel-section .sec-head, .cards, .attack, .bars, .toggle, .filters, .skill-grid, .demo, .chips').forEach(el => el.classList.add('reveal'));
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -161,22 +164,12 @@
   $('#run').addEventListener('click', run);
   qt.textContent = SC.labor.q;
 
-  /* ---------- evidence bars ---------- */
-  const M = [
-    ['Context precision', 'The documents it pulled are relevant', .764, .825],
-    ['Context recall', "It didn't miss a relevant document", .934, .983],
-    ['Faithfulness', 'The answer sticks to what was retrieved', null, .839],
-    ['Reference-fact coverage', 'The answer covers what the reference requires', null, .840],
-  ];
-  const bars = $('#bars');
-  M.forEach(([n, d]) => {
-    bars.insertAdjacentHTML('beforeend',
-      `<div class="bar-row"><div class="top"><span>${n}<br><small>${d}</small></span><b>–</b></div><div class="track"><div class="fill"></div></div></div>`);
-  });
+  /* ---------- evidence bars (values live in the HTML) ---------- */
+  const bars = $('#bars'), rows = $$('.bar-row', bars);
   function setMethod(m) {
     $$('.tg').forEach(b => { const on = b.dataset.m === m; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on); });
-    $$('.bar-row', bars).forEach((row, i) => {
-      const v = M[i][m === 'plain' ? 2 : 3], f = $('.fill', row), b = $('b', row);
+    rows.forEach(row => {
+      const raw = row.dataset[m], v = raw === '' ? null : +raw, f = $('.fill', row), b = $('b', row);
       f.classList.toggle('na', v === null);
       f.style.width = v === null ? '100%' : (v * 100) + '%';
       b.textContent = v === null ? 'not scored' : v.toFixed(3);
@@ -197,35 +190,126 @@
     atk.classList.toggle('safe', on);
   });
 
-  /* ---------- skills ---------- */
-  const S = [
-    ['domain', 'Total loss determination', 'State thresholds, ACV, salvage, supplements counted in.'],
-    ['domain', 'Supplement review & shop disputes', 'Labor caps, betterment, part types, reinspection triggers.'],
-    ['domain', 'Fraud indicators & subrogation', 'SIU red flags, liability, recovery triage.'],
-    ['ai', 'RAG architecture', 'Hybrid retrieval, rank fusion, cross-encoder reranking.'],
-    ['ai', 'Agentic workflows', 'Planning, self-correction, tool use; LangChain and LangGraph.'],
-    ['ai', 'Evaluation', 'Dated golden sets and adversarial suites, local judge model.'],
-    ['ai', 'Model Context Protocol', 'Configured and ran MCP servers for Blender, Unity and Unreal.'],
-    ['build', 'Python & FastAPI', 'Built with Claude Code. I direct, review and debug.'],
-    ['build', 'TypeScript & React', 'Built with Claude Code. Contract-first with Zod schemas.'],
-    ['build', 'Rust, C++, C#', 'AI-assisted. Not claiming unaided proficiency.'],
-    ['build', 'Postgres, pgvector, Docker', 'Migrations, parity tests, Compose.'],
-    ['quality', 'CI & accessibility gates', 'Automated tests and WCAG AA checks on every pull request.'],
-    ['quality', 'Spec-driven development', 'Write the contract first; let tests keep the AI honest.'],
-    ['quality', 'Training & enablement', 'Prompt library, department playbook, cross-team training.'],
-    ['quality', 'Privacy by design', 'PII scrubbing and photo redaction tools; local-first by default.'],
-  ];
+  /* ---------- skills (list lives in the HTML; filter with View Transitions) ---------- */
   const grid = $('#skills-grid');
-  S.forEach(([c, t, d]) => {
-    const li = document.createElement('li'); li.dataset.c = c;
-    const b = document.createElement('b'); b.textContent = t;
-    const s = document.createElement('span'); s.textContent = d;
-    li.append(b, s); grid.append(li);
-  });
+  $$('li', grid).forEach((li, i) => li.style.viewTransitionName = 'sk' + i);
   $$('.f').forEach(b => b.addEventListener('click', () => {
-    $$('.f').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b); });
-    $$('li', grid).forEach(li => li.classList.toggle('dim', b.dataset.f !== 'all' && li.dataset.c !== b.dataset.f));
+    const apply = () => {
+      $$('.f').forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b); });
+      $$('li', grid).forEach(li => li.hidden = b.dataset.f !== 'all' && li.dataset.c !== b.dataset.f);
+    };
+    document.startViewTransition && !reduce ? document.startViewTransition(apply) : apply();
   }));
+
+  /* ---------- typed mission line ---------- */
+  const typed = $('#typed');
+  if (typed && !reduce) {
+    const full = typed.textContent; typed.textContent = '';
+    let k = 0;
+    const tick = () => { typed.textContent = full.slice(0, ++k); if (k < full.length) setTimeout(tick, 22 + Math.random() * 30); };
+    setTimeout(tick, 450);
+  }
+
+  /* ---------- project cards: 3D tilt + cursor glow (mouse only) ---------- */
+  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.card').forEach(c => {
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--mx', x * 100 + '%'); c.style.setProperty('--my', y * 100 + '%');
+        c.style.setProperty('--ry', (x - .5) * 8 + 'deg'); c.style.setProperty('--rx', (.5 - y) * 8 + 'deg');
+      });
+      c.addEventListener('pointerleave', () => { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
+  /* ---------- active nav link ---------- */
+  const navLinks = $$('.nav nav a');
+  const navIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(l => l.getAttribute('href') === '#' + e.target.id ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current'));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  $$('main section[id]').forEach(s => navIO.observe(s));
+
+  /* ---------- Jump Cut mini-game (loaded on demand) ---------- */
+  function playMini(from) {
+    const back = from || document.activeElement;
+    if (window.openJumpCutMini) return window.openJumpCutMini(back);
+    const s = document.createElement('script'); s.src = 'jumpcut-mini.js';
+    s.onload = () => window.openJumpCutMini(back);
+    document.head.append(s);
+  }
+  $$('[data-mini]').forEach(b => { b.hidden = false; b.addEventListener('click', () => playMini(b)); });
+
+  /* ---------- command palette (Ctrl/Cmd+K, or /) ---------- */
+  const pal = $('#pal'), palQ = $('#pal-q'), palList = $('#pal-list'), palBtn = $('#pal-open');
+  const go = id => () => {
+    const el = document.getElementById(id);
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true });
+  };
+  const ext = url => () => window.open(url, '_blank', 'noopener');
+  const CMD = [
+    ['ClaimsRAG live replay', 'Section', go('claimsrag')],
+    ['Run the ClaimsRAG replay', 'Action', () => { go('claimsrag')(); setTimeout(() => $('#run').click(), reduce ? 0 : 500); }],
+    ['Evidence: does hybrid search help?', 'Section', go('evidence')],
+    ['Attack lab: poisoned documents', 'Section', go('attack')],
+    ['Skills', 'Section', go('skills')],
+    ['Projects', 'Section', go('projects')],
+    ['Story: from the mailroom to RAG', 'Section', go('story')],
+    ['Play the JUMP CUT 20-second mini', 'Action', () => playMini(palBtn)],
+    ['LinkedIn', 'Link', ext('https://www.linkedin.com/in/jaredfisher-ai/')],
+    ['GitHub', 'Link', ext('https://github.com/jf1shh')],
+    ['ClaimsRAG repository', 'Link', ext('https://github.com/jf1shh/claims-rag')],
+    ['Agentic App Harness showcase', 'Link', ext('https://jf1shh.github.io/agentic-app-harness/')],
+    ['JUMP CUT on itch.io', 'Link', ext('https://jf1shh.itch.io/jump-cut')],
+    ['X', 'Link', ext('https://x.com/JaredFishe19708')],
+    ['Instagram', 'Link', ext('https://www.instagram.com/jf1shh/')],
+  ];
+  let shown = [], sel = 0;
+  const fuzzy = (q, s) => { s = s.toLowerCase(); let i = 0; for (const ch of q.toLowerCase()) { i = s.indexOf(ch, i); if (i < 0) return false; i++; } return true; };
+  function render() {
+    const q = palQ.value.trim();
+    shown = CMD.filter(c => !q || fuzzy(q, c[0] + ' ' + c[1]));
+    sel = Math.min(sel, Math.max(shown.length - 1, 0));
+    palList.replaceChildren(...shown.map((c, i) => {
+      const li = document.createElement('li'); li.id = 'pal-o' + i; li.setAttribute('role', 'option');
+      const t = document.createElement('span'); t.textContent = c[0];
+      const k = document.createElement('small'); k.textContent = c[1];
+      li.append(t, k);
+      li.addEventListener('click', () => pick(i));
+      li.addEventListener('pointermove', () => { if (sel !== i) { sel = i; mark(); } });
+      return li;
+    }));
+    if (!shown.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'No match'; palList.append(li); }
+    mark();
+  }
+  function mark() {
+    $$('[role=option]', palList).forEach((li, i) => li.setAttribute('aria-selected', i === sel));
+    shown.length ? palQ.setAttribute('aria-activedescendant', 'pal-o' + sel) : palQ.removeAttribute('aria-activedescendant');
+    $('#pal-o' + sel)?.scrollIntoView({ block: 'nearest' });
+  }
+  function pick(i) { const c = shown[i]; if (!c) return; pal.close(); c[2](); }
+  function openPal() { if (pal.open) return; palQ.value = ''; sel = 0; render(); pal.showModal(); palQ.focus(); }
+  palQ.addEventListener('input', () => { sel = 0; render(); });
+  palQ.addEventListener('keydown', e => {
+    const n = Math.max(shown.length, 1);
+    if (e.key === 'ArrowDown') { e.preventDefault(); sel = (sel + 1) % n; mark(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); sel = (sel - 1 + n) % n; mark(); }
+    else if (e.key === 'Enter') { e.preventDefault(); pick(sel); }
+  });
+  pal.addEventListener('click', e => { if (e.target === pal) pal.close(); });
+  pal.addEventListener('close', () => { if (document.activeElement === document.body) palBtn.focus(); });
+  palBtn.hidden = false; palBtn.addEventListener('click', openPal);
+  if (/Mac|iPhone|iPad/.test(navigator.platform)) $('#pal-kbd').textContent = '⌘K';
+  addEventListener('keydown', e => {
+    const ae = document.activeElement, typing = /INPUT|TEXTAREA|SELECT/.test(ae.tagName) || ae.isContentEditable;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.open ? pal.close() : openPal(); }
+    else if (e.key === '/' && !typing && !document.querySelector('dialog[open]')) { e.preventDefault(); openPal(); }
+  });
+  const hint = $('.hint');
+  if (hint) hint.textContent = matchMedia('(pointer: fine)').matches
+    ? 'Move your mouse. Click to drop a node. Press Ctrl K to jump anywhere.'
+    : 'Tap "Jump to" to move around fast.';
 
   /* ---------- easter egg ---------- */
   const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -242,6 +326,7 @@
         s.style.animationDelay = Math.random() * .8 + 's';
         box.append(s); setTimeout(() => s.remove(), 3000);
       }
+      setTimeout(() => playMini(), reduce ? 0 : 1800);
     }
   });
 })();
