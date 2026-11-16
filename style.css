@@ -11,9 +11,9 @@
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{margin:0;background:var(--ink);color:rgba(244,242,250,.9);font:16px/1.6 var(--sans);overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;z-index:-2;
-  background:radial-gradient(60% 50% at 85% 5%,rgba(124,58,237,.30),transparent),
-             radial-gradient(45% 40% at 5% 95%,rgba(14,165,233,.16),transparent),var(--ink)}
-#net{position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.75;-webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 48%,transparent 35%,#000 92%);mask-image:radial-gradient(ellipse 62% 58% at 50% 48%,transparent 35%,#000 92%)}
+  background:radial-gradient(60% 50% at 85% 5%,rgba(124,58,237,.20),transparent),
+             radial-gradient(45% 40% at 5% 95%,rgba(14,165,233,.09),transparent),var(--ink)}
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.4;-webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 48%,transparent 35%,#000 92%);mask-image:radial-gradient(ellipse 62% 58% at 50% 48%,transparent 35%,#000 92%)}
 a{color:var(--lav)}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--lav);outline-offset:3px;border-radius:6px}
 .skip{position:absolute;left:-999px;top:8px;background:var(--violet);color:#fff;padding:8px 12px;border-radius:8px;z-index:50}
@@ -36,9 +36,10 @@ h3{margin:0 0 8px;color:#fff;font-size:1.2rem}
 .grad{background-image:linear-gradient(100deg,#7C3AED,#C4B5FD 60%,#0EA5E9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;padding-bottom:.08em}
 .lede{font-size:clamp(1.1rem,2.4vw,1.45rem);max-width:760px;color:rgba(244,242,250,.88)}
 .lede strong{color:#fff}
-.counters{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0}
-.counters div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 20px;min-width:140px}
-.counters b{display:block;font:800 2.2rem/1 var(--mono);color:#fff}
+.counters{display:flex;flex-wrap:wrap;gap:18px 0;margin:34px 0 30px}
+.counters div{padding:2px 28px;border-left:1px solid var(--line)}
+.counters div:first-child{padding-left:0;border-left:0}
+.counters b{display:block;font:800 2rem/1 var(--mono);color:#fff;margin-bottom:6px}
 .counters span{font-size:.82rem;color:var(--lav)}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-block;padding:11px 20px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;text-decoration:none;font:600 .95rem var(--sans);cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s}
@@ -46,10 +47,9 @@ h3{margin:0 0 8px;color:#fff;font-size:1.2rem}
 .btn.primary{background:var(--violet);border-color:var(--violet);box-shadow:0 0 28px rgba(124,58,237,.45)}
 .btn.primary:hover{background:#8b5cf6}
 .btn.small{padding:7px 14px;font-size:.85rem}
-.hint{margin-top:26px;font-size:.8rem;color:rgba(196,181,253,.6)}
 
-.panel-section{padding:84px 0 20px}
-.sec-head{max-width:760px;margin-bottom:28px}
+.panel-section{padding:120px 0 20px}
+.sec-head{max-width:760px;margin-bottom:36px}
 .sec-head p{color:rgba(244,242,250,.78)}
 .sec-head em{color:var(--lav);font-style:normal;border-bottom:1px dotted var(--lav)}
 
@@ -118,10 +118,10 @@ h3{margin:0 0 8px;color:#fff;font-size:1.2rem}
 .attack.safe #meter-fill{background:linear-gradient(90deg,var(--ok),var(--spark))}
 
 /* skills */
-.skill-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.skill-grid li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:opacity .3s,transform .3s,border-color .2s}
-.skill-grid li:hover{border-color:var(--violet);transform:translateY(-3px)}
-.skill-grid li.dim{opacity:.18;transform:scale(.97)}
+.skill-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0 32px}
+.skill-grid li{border-top:1px solid var(--line);padding:16px 0 18px;transition:opacity .3s,border-color .2s}
+.skill-grid li:hover{border-top-color:var(--violet)}
+.skill-grid li.dim{opacity:.18}
 .skill-grid b{color:#fff;display:block}
 .skill-grid span{font-size:.84rem;color:rgba(244,242,250,.72)}
 
@@ -266,7 +266,10 @@ kbd{font:600 .72rem var(--mono);background:rgba(124,58,237,.22);border:1px solid
 @media (max-width:560px){
   .js .nav nav{display:none}
   .pal-btn span{display:inline}
-  .counters div{min-width:0;flex:1 1 40%}
+  .counters div{flex:1 1 50%;padding:2px 0 2px 18px}
+  .counters div:nth-child(odd){padding-left:0;border-left:0}
+  .cta .btn{flex:1;text-align:center}
+  .cta .btn.primary{flex:1 1 100%}
 }
 @media (prefers-reduced-motion:reduce){
   .agent-net .p{display:none}

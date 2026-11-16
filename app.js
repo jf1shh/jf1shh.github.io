@@ -306,10 +306,6 @@
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.open ? pal.close() : openPal(); }
     else if (e.key === '/' && !typing && !document.querySelector('dialog[open]')) { e.preventDefault(); openPal(); }
   });
-  const hint = $('.hint');
-  if (hint) hint.textContent = matchMedia('(pointer: fine)').matches
-    ? 'Move your mouse. Click to drop a node. Press Ctrl K to jump anywhere.'
-    : 'Tap "Jump to" to move around fast.';
 
   /* ---------- easter egg ---------- */
   const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
